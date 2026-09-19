@@ -1,20 +1,25 @@
 # DevShowcase API
 
-- Backend da plataforma DevShowcase API
-- Construído com Node.js, Express, JavaScript, PostgreSQL e Prisma.
+Backend da plataforma DevShowcase API.
+
+Construído com Node.js, Express, JavaScript, PostgreSQL e Prisma.
 
 
 ## Instalação
 
 ```bash
 npm install
+```
+
+```bash
 cp .env.example .env
 ```
 
 ## Antes do primeiro npm run db:migrate nesse banco, marque a migration como aplicada:
 
-- `npx prisma migrate resolve --applied 0001_init`
-
+```bash
+npx prisma migrate resolve --applied 0001_init
+```
 
 ## Em um banco de dados novo, execute:
 
@@ -29,7 +34,7 @@ npm run db:seed
 npm run db:reset
 ```
 
-## Execução
+## Rodar a aplicação
 
 ```bash
 npm run dev
@@ -65,5 +70,14 @@ A aplicação está organizada em:
 - `tests`: testes de integração
 
 
-## Comando no CMD para apagar o repositório do Git sem alterar ou perder os seus arquivos e modificações.
-- `rmdir /s /q .git`
+Comando para apagar o diretorio .git sem alterar ou perder os arquivos e modificações feitas no projeto.
+
+```bash
+rmdir /s /q .git
+```
+
+Comando para dar merge em todas as outras branches locais (exceto a própria main).
+
+```bash
+git branch | grep -v "main" | xargs -n 1 git merge
+```

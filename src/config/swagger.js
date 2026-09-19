@@ -4,9 +4,9 @@ const options = {
   definition: {
     openapi: '3.0.3',
     info: {
-      title: 'OpenAPI definition',
+      title: 'DevShowcase API',
       version: '1.0.0',
-      description: 'API REST inicial da plataforma DevShowcase.'
+      description: 'Documentação Swagger - API RESTful da plataforma DevShowcase.'
     },
     servers: [{ url: 'http://localhost:3000' }],
     components: {
@@ -18,7 +18,6 @@ const options = {
             nome: { type: 'string', minLength: 1 },
             usuario: { type: 'string', minLength: 1 },
             funcao: { type: 'string' }
-            // avatarUrl: { type: 'string', format: 'uri' }
           }
         },
         TechnologyInput: {
@@ -40,13 +39,7 @@ const options = {
           }
         },
         // FeedbackInput: {
-        //   type: 'object',
-        //   required: ['id_projeto', 'autor', 'comentario'],
-        //   properties: {
-        //     id_projeto: { type: 'integer', example: 1 },
-        //     autor: { type: 'string', minLength: 1 },
-        //     comentario: { type: 'string', minLength: 1 }
-        //   }
+          // type: 'object',
         // }
       }
     }

@@ -14,7 +14,6 @@ const createProfileRules = [
       return true;
     }),
   body('funcao').trim().notEmpty().withMessage('A função é obrigatória'),
-  // body('avatarUrl').optional().isURL().withMessage('O URL do avatar deve ser uma URL válida')
 ];
 
 const toProfileOutput = profile => ({
