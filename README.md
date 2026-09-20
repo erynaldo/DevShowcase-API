@@ -1,11 +1,35 @@
 # DevShowcase API
 
-Backend da plataforma DevShowcase API.
-
-Construído com Node.js, Express, JavaScript, PostgreSQL e Prisma.
+Backend: API RESTful da plataforma DevShowcase.
 
 
-## Instalação
+## Construção da API
+
+Linguagem: JavaScript.
+
+Stacks escolhidas: Node.js, Express, Prisma e PostgreSQL.
+
+
+## Modelagem de entidades relacionais:
+
+Criação das entidades: Profile (Perfil do Desenvolvedor), Project (Projeto), Feedback (Opinião) e Technology (Tecnologia).
+
+Relacionamentos:
+     Profile 1 : N Project
+     Project N : N Technology
+     Project 1 : N Feedback
+
+
+## Endpoints REST implementadas:
+
+- POST /api/profiles      (Cadastro de perfil com validações).
+- GET /api/profiles/{id}  (Buscar perfil por id).
+- POST /api/technologies  (Cadastro de tecnologia com validações).
+- GET /api/technologies   (Listagem de todas as tecnologias).
+- POST /api/projects      (Cadastro de projeto com validações).
+- GET /api/projects       (Listagem de projetos).
+
+## Instalação das dependências da aplicação
 
 ```bash
 npm install
@@ -15,16 +39,16 @@ npm install
 cp .env.example .env
 ```
 
-## Antes do primeiro npm run db:migrate nesse banco, marque a migration como aplicada:
-
-```bash
-npx prisma migrate resolve --applied 0001_init
-```
-
-## Em um banco de dados novo, execute:
+## Para criar o banco de dados, execute:
 
 ```bash
 npm run db:migrate
+```
+
+
+## Para inserir os registros no banco de dados:
+
+```bash
 npm run db:seed
 ```
 
@@ -45,7 +69,7 @@ API: `http://localhost:3000/api`
 Swagger UI: `http://localhost:3000/api/docs`
 
 
-## Endpoints
+## Endpoints da API
 
 - `POST /api/profiles`
 - `GET /api/profiles/{id}`
@@ -55,7 +79,7 @@ Swagger UI: `http://localhost:3000/api/docs`
 - `GET /api/projects`
 
 
-## Arquitetura
+## Arquitetura da aplicação
 
 A aplicação está organizada em:
 

@@ -34,8 +34,8 @@ const options = {
             descricao: { type: 'string' },
             url_repositorio: { type: 'string', format: 'uri' },
             url_demonstracao: { type: 'string', format: 'uri' },
+            // endereco_url: { type: 'string', format: 'uri' },
             technologyIds: { type: 'array', items: { type: 'integer' } },
-            endereco_url: { type: 'string', format: 'uri' }
           }
         },
         // FeedbackInput: {

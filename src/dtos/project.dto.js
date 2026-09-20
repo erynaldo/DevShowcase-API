@@ -29,6 +29,7 @@ const createProjectRules = [
     .toInt(),
   body('titulo').trim().notEmpty().withMessage('O título é um campo obrigatório'),
   body('url_repositorio').notEmpty().isURL().withMessage('Esse campo deve ser preenchido e deve ser uma URL válida'),
+  body('url_demonstracao').notEmpty().withMessage('O campo endereço URL deve ser preenchido'),
   body('url_demonstracao').optional().isURL().withMessage('O endereço URL deve ser válido'),
   body('technologyIds').notEmpty().isArray().withMessage('Os IDs das tecnologias devem ser um array'),
   body('technologyIds.*').optional().isInt({ min: 1 }).withMessage('Os IDs das tecnologias devem conter valores válidos')
