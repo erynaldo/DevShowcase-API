@@ -12,15 +12,22 @@ Stacks escolhidas: Node.js, Express, Prisma e PostgreSQL.
 
 ## Modelagem de entidades relacionais:
 
-Criação das entidades: Profile (Perfil do Desenvolvedor), Project (Projeto), Feedback (Opinião) e Technology (Tecnologia).
+**Criação das entidades:**
 
-Relacionamentos:
-     Profile 1 : N Project
-     Project N : N Technology
-     Project 1 : N Feedback
+- Profile (Perfil do Desenvolvedor), 
+- Project (Projeto), 
+- Feedback (Opinião), 
+- Technology (Tecnologia).
 
 
-## Endpoints REST implementadas:
+**Relacionamentos:**
+
+- Profile 1 : N Project
+- Project N : N Technology
+- Project 1 : N Feedback
+
+
+## Endpoints implementadas:
 
 - POST /api/profiles      (Cadastro de perfil com validações).
 - GET /api/profiles/{id}  (Buscar perfil por id).
