@@ -36,22 +36,65 @@ Stacks escolhidas: Node.js, Express, Prisma e PostgreSQL.
 - POST /api/projects      (Cadastro de projeto com validações).
 - GET /api/projects       (Listagem de projetos).
 
-## Instalação das dependências da aplicação
+**-----------------------------------------------**
+
+## Clonar essa aplicação
+
+```bash
+git clone URL_do_repositorio
+```
+
+**Instalar as dependências**
 
 ```bash
 npm install
 ```
 
+**Forçar a correção de vulnerabilidades**
+
+```bash
+npm audit fix --force
+```
+
+**Copiar o arquivo variáveis de ambiente**
+
 ```bash
 cp .env.example .env
 ```
+
+**Inserir no arquivo .env as credenciais do banco de dados postgresql hospedado na nuvem**
+
+ - Exemplo: DATABASE_URL=postgres://nome_do_usuario:senha_desse_usuario@...
+
+**Gerar a biblioteca de código para interagir com o banco de dados. Lê o arquivo schema e cria o Prisma Client**
+
+```bash
+npx prisma generate
+```
+
+**Rodar a aplicação**
+
+```bash
+npm run dev
+```
+
+**Agora é só rodar a API no endereço URL**
+
+API: `http://localhost:3000/api`
+
+
+**Endereço URL da documentação**
+Swagger UI: `http://localhost:3000/api/docs`
+
+**-----------------------------------------------**
+
+### Outros comandos importantes
 
 ## Para criar o banco de dados, execute:
 
 ```bash
 npm run db:migrate
 ```
-
 
 ## Para inserir os registros no banco de dados:
 
@@ -64,16 +107,6 @@ npm run db:seed
 ```bash
 npm run db:reset
 ```
-
-## Rodar a aplicação
-
-```bash
-npm run dev
-```
-
-API: `http://localhost:3000/api`
-
-Swagger UI: `http://localhost:3000/api/docs`
 
 
 ## Endpoints da API
