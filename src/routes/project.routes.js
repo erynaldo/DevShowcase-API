@@ -65,26 +65,6 @@ const { createFeedbackRules } = require('../dtos/feedback.dto');
 
 /**
  * @swagger
- * /api/projects/{id}:
- *   get:
- *     summary: Busca um projeto pelo ID
- *     tags: [Projetos]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema: {type: integer, minimum: 1}
- *     responses:
- *       200: {description: Projeto encontrado}
- *       404:
- *         description: Projeto não encontrado
- *         content:
- *           application/json:
- *             schema: {$ref: '#/components/schemas/ErrorResponse'}
- */
-
-/**
- * @swagger
  * /api/projects/{id}/upvote:
  *   put:
  *     summary: Incrementa as curtidas do projeto
@@ -148,7 +128,6 @@ const { createFeedbackRules } = require('../dtos/feedback.dto');
 
 router.post('/', normalizeProjectInput, createProjectRules, validate, controller.create);
 router.get('/', listProjectRules, validate, controller.list);
-router.get('/:id', projectIdRules, validate, controller.getById);
 router.put('/:id/upvote', projectIdRules, validate, controller.upvote);
 router.post('/:id/feedbacks', createFeedbackRules, validate, feedbackController.create);
 

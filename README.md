@@ -35,7 +35,6 @@ Stacks escolhidas: Node.js, Express, Prisma e PostgreSQL.
 - GET /api/technologies   (Listagem de todas as tecnologias).
 - POST /api/projects      (Cadastro de projeto com validações).
 - GET /api/projects       (Listagem de projetos com filtro por tecnologia e paginação).
-- GET /api/projects/{id}  (Buscar projeto por id).
 - PUT /api/projects/{id}/upvote     (Incrementa as curtidas do projeto).
 - POST /api/projects/{id}/feedbacks (Cadastra nota de 1 a 5 e comentário, recalculando a nota média do projeto).
 
@@ -120,7 +119,6 @@ npm run db:reset
 - `GET /api/technologies`
 - `POST /api/projects`
 - `GET /api/projects?tecnologia=Node.js&page=1&limit=10`
-- `GET /api/projects/{id}`
 - `PUT /api/projects/{id}/upvote`
 - `POST /api/projects/{id}/feedbacks`
 
