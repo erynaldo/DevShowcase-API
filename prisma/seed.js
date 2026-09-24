@@ -19,19 +19,31 @@ async function main() {
     'Node.js', 'Python', 'PostgreSQL', 'MySQL', 'JavaScript', 'TypeScript', 'React', 'Sequelize', 'Hibernate', 'Prisma'
   ].map((nome, index) => ({ id: index + 1, nome })) });
   await prisma.project.createMany({ data: [
-    { id: 1, profileId: 1, titulo: 'DevShowcase API', descricao: 'API RESTFul para portfólio', url_repositorio: 'https://github.com/example/devshowcase-api', url_demonstracao: 'https://example.com/api' },
-    { id: 2, profileId: 2, titulo: 'GestorTarefas', descricao: 'Gerenciador de tarefas', url_repositorio: 'https://github.com/example/task-manager', url_demonstracao: 'https://example.com/tasks' },
-    { id: 3, profileId: 3, titulo: 'AutomacaoEmail', descricao: 'Sistema de automação de envio de emails', url_repositorio: 'https://github.com/example/email-automation', url_demonstracao: 'https://example.com/messages' }
+    { id: 1, profileId: 1, titulo: 'DevShowcase API', descricao: 'API RESTFul para portfólio', url_repositorio: 'https://github.com/example/devshowcase-api', url_demonstracao: 'https://example.com/api', upvotes: 12 },
+    { id: 2, profileId: 2, titulo: 'GestorTarefas', descricao: 'Gerenciador de tarefas', url_repositorio: 'https://github.com/example/task-manager', url_demonstracao: 'https://example.com/tasks', upvotes: 5 },
+    { id: 3, profileId: 3, titulo: 'AutomacaoEmail', descricao: 'Sistema de automação de envio de emails', url_repositorio: 'https://github.com/example/email-automation', url_demonstracao: 'https://example.com/messages', upvotes: 0 }
   ] });
   await prisma.projectTechnology.createMany({ data: [
     [1, 1], [1, 3], [1, 5], [2, 2], [2, 10], [3, 1], [3, 6], [3, 8]
   ].map(([id_projeto, id_tecnologia]) => ({ id_projeto, id_tecnologia })) });
   await prisma.feedback.createMany({ data: [
-    { id: 1, projetoId: 1, autor: 'Marina Costa', comentario: 'Excelente projeto e documentação!' },
-    { id: 2, projetoId: 1, autor: 'João Lima', comentario: 'Arquitetura moderna e escalável.' },
-    { id: 3, projetoId: 2, autor: 'Guilherme Dantas', comentario: 'Muito bom! O sistema é muito eficiente.' },
-    { id: 4, projetoId: 3, autor: 'Livia Fernandes', comentario: 'Nota 10 para o projeto. Tem o código limpo e bem estruturado.' }
+    { id: 1, projetoId: 1, autor: 'Marina Costa', nota: 5, comentario: 'Excelente projeto e documentação!' },
+    { id: 2, projetoId: 1, autor: 'João Lima', nota: 4, comentario: 'Arquitetura moderna e escalável.' },
+    { id: 3, projetoId: 2, autor: 'Guilherme Dantas', nota: 4, comentario: 'Muito bom! O sistema é muito eficiente.' },
+    { id: 4, projetoId: 3, autor: 'Livia Fernandes', nota: 5, comentario: 'Nota 10 para o projeto. Tem o código limpo e bem estruturado.' }
   ] });
+
+  const projetos = await prisma.project.findMany({ select: { id: true } });
+  for (const projeto of projetos) {
+    const { _avg } = await prisma.feedback.aggregate({
+      where: { projetoId: projeto.id },
+      _avg: { nota: true }
+    });
+    await prisma.project.update({
+      where: { id: projeto.id },
+      data: { notaMedia: Number((_avg.nota ?? 0).toFixed(2)) }
+    });
+  }
 
   for (const table of ['profiles', 'technologies', 'projects', 'feedbacks']) {
     await prisma.$executeRawUnsafe(
