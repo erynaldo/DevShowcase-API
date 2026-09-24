@@ -1,4 +1,5 @@
-const { body, validationResult } = require('express-validator');
+const { body } = require('express-validator');
+const { validate } = require('./validate');
 const profileRepo = require('../repositories/profile.repository');
 
 const createProfileRules = [
@@ -21,10 +22,5 @@ const toProfileOutput = profile => ({
   funcao: profile.funcao, createdAt: profile.createdAt
 }); 
 
-const validate = (req, res, next) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
-  next();
-};
 
 module.exports = { createProfileRules, toProfileOutput, validate };

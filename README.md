@@ -34,7 +34,10 @@ Stacks escolhidas: Node.js, Express, Prisma e PostgreSQL.
 - POST /api/technologies  (Cadastro de tecnologia com validações).
 - GET /api/technologies   (Listagem de todas as tecnologias).
 - POST /api/projects      (Cadastro de projeto com validações).
-- GET /api/projects       (Listagem de projetos).
+- GET /api/projects       (Listagem de projetos com filtro por tecnologia e paginação).
+- GET /api/projects/{id}  (Buscar projeto por id).
+- PUT /api/projects/{id}/upvote     (Incrementa as curtidas do projeto).
+- POST /api/projects/{id}/feedbacks (Cadastra nota de 1 a 5 e comentário, recalculando a nota média do projeto).
 
 **-----------------------------------------------**
 
@@ -116,7 +119,91 @@ npm run db:reset
 - `POST /api/technologies`
 - `GET /api/technologies`
 - `POST /api/projects`
-- `GET /api/projects`
+- `GET /api/projects?tecnologia=Node.js&page=1&limit=10`
+- `GET /api/projects/{id}`
+- `PUT /api/projects/{id}/upvote`
+- `POST /api/projects/{id}/feedbacks`
+
+### Filtro e paginação em `GET /api/projects`
+
+| Parâmetro | Tipo | Padrão | Descrição |
+| --- | --- | --- | --- |
+| `tecnologia` | string | - | Filtra pelo nome da tecnologia (busca parcial, ignora maiúsculas) |
+| `tecnologiaId` | inteiro | - | Filtra pelo ID da tecnologia (tem prioridade sobre `tecnologia`) |
+| `page` | inteiro | 1 | Página desejada |
+| `limit` | inteiro | 10 | Projetos por página (máximo 50) |
+
+A resposta traz os projetos em `data` e os metadados em `pagination`:
+
+```json
+{
+  "data": [
+    {
+      "id": 1,
+      "titulo": "DevShowcase API",
+      "upvotes": 12,
+      "notaMedia": 4.5,
+      "totalFeedbacks": 2,
+      "tecnologias": [{ "id": 1, "nome": "Node.js" }]
+    }
+  ],
+  "pagination": { "page": 1, "limit": 10, "total": 3, "totalPages": 1 },
+  "filtros": { "tecnologia": "Node.js", "tecnologiaId": null }
+}
+```
+
+### Cadastro de feedback
+
+`POST /api/projects/{id}/feedbacks` grava o feedback e recalcula a nota média do projeto
+na mesma transação, devolvendo o valor já atualizado:
+
+```json
+{
+  "autor": "Maria Souza",
+  "nota": 5,
+  "comentario": "Projeto muito bem estruturado."
+}
+```
+
+```json
+{
+  "id": 7,
+  "projetoId": 1,
+  "autor": "Maria Souza",
+  "nota": 5,
+  "comentario": "Projeto muito bem estruturado.",
+  "createdAt": "2026-02-10T12:00:00.000Z",
+  "projeto": { "id": 1, "notaMedia": 4.67, "totalFeedbacks": 3 }
+}
+```
+
+## Tratamento global de erros
+
+Todo erro passa pelo manipulador global em `src/exception/error.handler.js` e volta no
+mesmo formato, incluindo os erros de validação do `express-validator`:
+
+```json
+{
+  "status": 400,
+  "error": "Bad Request",
+  "message": "A requisição contém dados inválidos.",
+  "path": "/api/projects/1/feedbacks",
+  "timestamp": "2026-02-10T12:00:00.000Z",
+  "details": [
+    { "campo": "nota", "valor": 9, "mensagem": "A nota deve ser um número inteiro entre 1 e 5" }
+  ]
+}
+```
+
+O campo `details` aparece somente em erros de validação. Situações cobertas:
+
+| Status | Quando acontece |
+| --- | --- |
+| 400 Bad Request | Falha de validação, JSON malformado no corpo da requisição |
+| 404 Not Found | Rota inexistente, projeto/perfil/tecnologia não encontrado |
+| 409 Conflict | Violação de campo único (ex.: tecnologia já cadastrada) |
+| 503 / 504 | Banco de dados indisponível ou lento para responder |
+| 500 Internal Server Error | Demais falhas inesperadas |
 
 
 ## Arquitetura da aplicação
