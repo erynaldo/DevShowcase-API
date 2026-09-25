@@ -10,19 +10,6 @@ const { normalizeFeedbackInput, createFeedbackRules, updateFeedbackRules, valida
  *     tags: [Feedbacks]
  *     responses:
  *       200: {description: Lista de feedbacks}
- * /api/projects/{id}/feedbacks:
- *   post:
- *     summary: Cadastra feedback e atualiza a nota média do projeto
- *     tags: [Feedbacks]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema: {$ref: '#/components/schemas/FeedbackInput'}
- *     responses:
- *       201: {description: Feedback criado}
- *       400: {description: Dados inválidos}
- *       404: {description: Projeto não encontrado}
  * /api/feedbacks/{id}:
  *   patch:
  *     summary: Atualiza parcialmente um feedback
