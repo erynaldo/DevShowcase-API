@@ -81,7 +81,7 @@ const { upvoteRules, validate: validateUpvote } = require('../dtos/upvote.dto');
  * @swagger
  * /api/projects/{id}/feedbacks:
  *   post:
- *     summary: Cadastra feedback e atualiza a nota média do projeto
+ *     summary: Adiciona comentário e nota de 1 a 5 a um determinado projeto
  *     tags: [Feedbacks]
  *     parameters:
  *       - in: path

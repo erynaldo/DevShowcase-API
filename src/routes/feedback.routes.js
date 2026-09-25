@@ -12,7 +12,7 @@ const { normalizeFeedbackInput, createFeedbackRules, updateFeedbackRules, valida
  *       200: {description: Lista de feedbacks}
  * /api/projects/{id}/feedbacks:
  *   post:
- *     summary: Adiciona comentário e nota de 1 a 5 a um determinado projeto
+ *     summary: Cadastra feedback e atualiza a nota média do projeto
  *     tags: [Feedbacks]
  *     requestBody:
  *       required: true
