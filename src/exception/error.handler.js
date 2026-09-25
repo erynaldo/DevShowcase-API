@@ -31,7 +31,6 @@ const getStatus = error => {
   if (error.code === 'P1002') return 504;
   if (error.name === 'SyntaxError' && error.status === 400) return 400;
   if (error.code === 'P2002') return 409;
-  if (error.code === 'P2025') return 404;
   return 500;
 };
 
@@ -56,10 +55,6 @@ const errorHandler = (error, req, res, next) => {
     path: req.originalUrl,
     timestamp: new Date().toISOString()
   };
-
-  if (Array.isArray(error.details) && error.details.length) {
-    response.details = error.details;
-  }
 
   if (status >= 500) console.error(error);
 

@@ -1,5 +1,4 @@
-const { body } = require('express-validator');
-const { validate } = require('./validate');
+const { body, validationResult } = require('express-validator');
 
 const createTechnologyRules = [
   body('nome').trim().notEmpty().withMessage('O nome da tecnologia é obrigatório'),
@@ -7,6 +6,11 @@ const createTechnologyRules = [
   body('nome').matches(/^(?=.*[a-zA-Z])[a-zA-Z0-9\s]+$/).withMessage('O nome da tecnologia não pode ser somente números')
 ];
 
+const validate = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+  next();
+};
 
 const toTechnologyOutput = technology => ({
   id: technology.id, nome: technology.nome, createdAt: technology.createdAt

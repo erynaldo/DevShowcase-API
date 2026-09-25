@@ -34,17 +34,6 @@ module.exports = {
     });
     return projectRepo.findById(project.id);
   },
-  list: ({ tecnologia, tecnologiaId, page, limit }) => projectRepo.findAndCountAll({
-    tecnologia, tecnologiaId, page, limit
-  }),
-  getById: id => projectRepo.findById(id),
-  upvote: async id => {
-    const project = await projectRepo.findById(id);
-    if (!project) {
-      const error = new Error('Projeto não encontrado');
-      error.status = 404;
-      throw error;
-    }
-    return projectRepo.incrementUpvotes(id);
-  }
+  list: () => projectRepo.findAll(),
+  getById: id => projectRepo.findById(id)
 };
