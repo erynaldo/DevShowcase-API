@@ -1,4 +1,5 @@
 const { body, validationResult } = require('express-validator');
+const { formatDateTime } = require('./date.dto');
 
 const createTechnologyRules = [
   body('nome').trim().notEmpty().withMessage('O nome da tecnologia é obrigatório'),
@@ -13,7 +14,7 @@ const validate = (req, res, next) => {
 };
 
 const toTechnologyOutput = technology => ({
-  id: technology.id, nome: technology.nome, createdAt: technology.createdAt
+  id: technology.id, nome: technology.nome, createdAt: formatDateTime(technology.createdAt)
 });
 
 module.exports = { createTechnologyRules, validate, toTechnologyOutput };

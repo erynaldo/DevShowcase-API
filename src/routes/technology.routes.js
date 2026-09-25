@@ -11,7 +11,7 @@ const { createTechnologyRules, validate } = require('../dtos/technology.dto');
  *     responses:
  *       200: {description: Lista de tecnologias}
  *   post:
- *     summary: Cadastra uma tecnologia
+ *     summary: Cadastra uma nova tecnologia
  *     tags: [Tecnologias]
  *     requestBody:
  *       required: true
@@ -22,7 +22,6 @@ const { createTechnologyRules, validate } = require('../dtos/technology.dto');
  *       201: {description: Tecnologia criada}
  *       400: {description: Dados inválidos}
  */
-
 router.get('/', controller.list);
 router.post('/', createTechnologyRules, validate, controller.create);
 

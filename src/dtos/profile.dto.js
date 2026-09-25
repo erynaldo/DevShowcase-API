@@ -1,5 +1,6 @@
 const { body, validationResult } = require('express-validator');
 const profileRepo = require('../repositories/profile.repository');
+const { formatDateTime } = require('./date.dto');
 
 const createProfileRules = [
   body('nome').trim().notEmpty().withMessage('O nome é obrigatório'),
@@ -18,7 +19,7 @@ const createProfileRules = [
 
 const toProfileOutput = profile => ({
   id: profile.id, nome: profile.nome, usuario: profile.usuario,
-  funcao: profile.funcao, createdAt: profile.createdAt
+  funcao: profile.funcao, createdAt: formatDateTime(profile.createdAt)
 }); 
 
 const validate = (req, res, next) => {

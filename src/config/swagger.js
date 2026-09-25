@@ -4,9 +4,9 @@ const options = {
   definition: {
     openapi: '3.0.3',
     info: {
-      title: 'DevShowcase API',
+      title: 'OpenAPI definition',
       version: '1.0.0',
-      description: 'Documentação Swagger - API RESTful da plataforma DevShowcase.'
+      description: 'Documentação - API RESTful da plataforma DevShowcase.'
     },
     servers: [{ url: 'http://localhost:3000' }],
     components: {
@@ -34,13 +34,61 @@ const options = {
             descricao: { type: 'string' },
             url_repositorio: { type: 'string', format: 'uri' },
             url_demonstracao: { type: 'string', format: 'uri' },
-            // endereco_url: { type: 'string', format: 'uri' },
             technologyIds: { type: 'array', items: { type: 'integer' } },
+            endereco_url: { type: 'string', format: 'uri' }
           }
         },
-        // FeedbackInput: {
-          // type: 'object',
-        // }
+        ProjectOutput: {
+          type: 'object',
+          properties: {
+            id: { type: 'integer', example: 1 },
+            profileId: { type: 'integer', example: 1 },
+            titulo: { type: 'string', example: 'DevShowcase API' },
+            descricao: { type: 'string', nullable: true },
+            endereco_url: { type: 'string', format: 'uri', nullable: true },
+            notaMedia: { type: 'number', format: 'float', example: 4.6 },
+            upvotes: { type: 'integer', example: 12 },
+            totalFeedbacks: { type: 'integer', example: 8 },
+            createdAt: { type: 'string', example: '2026-09-25 / 14:03:07' },
+            tecnologias: { type: 'array', items: { type: 'object' } }
+          }
+        },
+        PaginatedProjects: {
+          type: 'object',
+          properties: {
+            data: { type: 'array', items: { $ref: '#/components/schemas/ProjectOutput' } },
+            pagination: {
+              type: 'object',
+              properties: {
+                page: { type: 'integer', example: 1 },
+                projectsForPage: { type: 'integer', example: 10 },
+                totalProjects: { type: 'integer', example: 25 },
+                totalPages: { type: 'integer', example: 3 }
+              }
+            }
+          }
+        },
+        FeedbackOutput: {
+            type: 'object',
+            properties: {
+              id: { type: 'integer', example: 1 },
+              projetoId: { type: 'integer', example: 1 },
+              autor: { type: 'string', example: 'Ana Silva' },
+              nota: { type: 'integer', example: 5 },
+              comentario: { type: 'string' },
+              createdAt: { type: 'string', example: '2026-09-25 / 14:03:07' }
+            }
+          },
+        FeedbackInput: {
+          type: 'object',
+          required: ['id_projeto', 'autor', 'nota', 'comentario'],
+          properties: {
+            id_projeto: { type: 'integer', example: 1 },
+            autor: { type: 'string', minLength: 1 },
+            nota: { type: 'integer', minimum: 1, maximum: 5 },
+            comentario: { type: 'string', minLength: 1 }
+          }
+        }
       }
     }
   },

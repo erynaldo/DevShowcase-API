@@ -1,4 +1,5 @@
 const { body, validationResult } = require('express-validator');
+const { formatDateTime } = require('./date.dto');
 
 const normalizeProjectInput = (req, res, next) => {
   if (req.body) {
@@ -45,8 +46,11 @@ const toProjectOutput = project => ({
   id: project.id, profileId: project.profileId, titulo: project.titulo,
   descricao: project.descricao, url_repositorio: project.url_repositorio,
   endereco_url: project.url_demonstracao,
+  notaMedia: Number((project.notaMedia || 0).toFixed(1)),
+  upvotes: project.upvotes,
+  totalFeedbacks: project.totalFeedbacks,
   tecnologias: project.technologies?.map(t => ({ id: t.id, nome: t.nome })) || [],
-  createdAt: project.createdAt
+  createdAt: formatDateTime(project.createdAt)
 });
 
 module.exports = { normalizeProjectInput, createProjectRules, validate, toProjectOutput }; 

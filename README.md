@@ -31,10 +31,24 @@ Stacks escolhidas: Node.js, Express, Prisma e PostgreSQL.
 
 - POST /api/profiles      (Cadastro de perfil com validações).
 - GET /api/profiles/{id}  (Buscar perfil por id).
+- GET /api/profiles       (Listagem de todas os perfils).
+
 - POST /api/technologies  (Cadastro de tecnologia com validações).
 - GET /api/technologies   (Listagem de todas as tecnologias).
+
 - POST /api/projects      (Cadastro de projeto com validações).
-- GET /api/projects       (Listagem de projetos).
+- GET /api/projects       (Listagem de todos os projetos).
+- GET /api/projects/{id}  (Buscar projeto por id).
+
+- GET /api/projects/technology/{technology}         (Listagem de projetos que utilizam uma tecnologia).
+- GET /api/projects/pagination/{limite}?page=1      (Listagem paginada de projetos).
+
+- POST /api/projects/{id}/upvote (Adicionar upvotes).
+- PUT /api/projects/{id}/upvote  (Atualizar/Incrementar upvotes).
+
+- POST /api/projects/{id}/feedbacks (Cadastro de feedback com nota de 1 a 5 a um projeto).
+- GET /api/feedbacks           (Listagem de todos os feedbacks).
+
 
 **-----------------------------------------------**
 
@@ -72,6 +86,12 @@ cp .env.example .env
 npx prisma generate
 ```
 
+**Migrate deploy**
+
+```bash
+npx prisma migrate deploy
+```
+
 **Rodar a aplicação**
 
 ```bash
@@ -83,7 +103,8 @@ npm run dev
 API: `http://localhost:3000/api`
 
 
-**Endereço URL da documentação**
+**Endereço URL da documentação Swagger**
+
 Swagger UI: `http://localhost:3000/api/docs`
 
 **-----------------------------------------------**
@@ -107,17 +128,6 @@ npm run db:seed
 ```bash
 npm run db:reset
 ```
-
-
-## Endpoints da API
-
-- `POST /api/profiles`
-- `GET /api/profiles/{id}`
-- `POST /api/technologies`
-- `GET /api/technologies`
-- `POST /api/projects`
-- `GET /api/projects`
-
 
 ## Arquitetura da aplicação
 

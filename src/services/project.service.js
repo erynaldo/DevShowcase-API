@@ -34,6 +34,12 @@ module.exports = {
     });
     return projectRepo.findById(project.id);
   },
-  list: () => projectRepo.findAll(),
+  list: async options => {
+    const result = await projectRepo.findAll(options);
+    return options?.page && options?.limit
+      ? result
+      : result.projects;
+  },
+  findByTechnology: technology => projectRepo.findByTechnology(technology),
   getById: id => projectRepo.findById(id)
 };
