@@ -8,7 +8,7 @@ const options = {
       version: '1.0.0',
       description: 'Documentação - API RESTful da plataforma DevShowcase.'
     },
-    servers: [{ url: 'http://localhost:3000' }],
+    servers: [{ url: 'https://devshowcase-api-4ezm.onrender.com' }],
     components: {
       schemas: {
         ProfileInput: {

@@ -100,12 +100,12 @@ npm run dev
 
 **Agora é só rodar a API no endereço URL**
 
-API: `http://localhost:3000/api`
+API: `https://devshowcase-api-4ezm.onrender.com/api`
 
 
 **Endereço URL da documentação Swagger**
 
-Swagger UI: `http://localhost:3000/api/docs`
+Swagger UI: `https://devshowcase-api-4ezm.onrender.com/api/docs`
 
 **-----------------------------------------------**
 
