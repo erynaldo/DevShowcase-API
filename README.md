@@ -98,14 +98,16 @@ npx prisma migrate deploy
 npm run dev
 ```
 
-**Agora é só rodar a API no endereço URL**
+**Endereços locais para testar a API**
 
-API: `https://devshowcase-api-4ezm.onrender.com/api`
+<!-- API local: `http://localhost:3000/api` -->
+API Render: `https://devshowcase-api-4ezm.onrender.com/api`
 
 
-**Endereço URL da documentação Swagger**
+**Documentação Swagger local**
 
-Swagger UI: `https://devshowcase-api-4ezm.onrender.com/api/docs`
+<!-- Swagger UI: `http://localhost:3000/api/docs` -->
+Swagger UI Render: `https://devshowcase-api-4ezm.onrender.com/api/docs`
 
 **-----------------------------------------------**
 
