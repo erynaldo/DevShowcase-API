@@ -14,7 +14,7 @@ module.exports = {
       data: { notaMedia, totalFeedbacks: { increment: 1 } }
     });
     return feedback;
-  }),
+  }, { maxWait: 10000, timeout: 15000 }),
   findAll: projetoId => prisma.feedback.findMany({
     where: projetoId ? { projetoId: Number(projetoId) } : undefined,
     orderBy: { createdAt: 'desc' }
