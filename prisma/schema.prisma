@@ -36,8 +36,6 @@ model Project {
   descricao           String?
   url_repositorio     String?             @db.VarChar(500)
   url_demonstracao    String?             @db.VarChar(500)
-  upvotes             Int                 @default(0)
-  notaMedia           Float               @default(0) @map("nota_media")
   createdAt           DateTime            @default(now()) @map("created_at")
   updatedAt           DateTime            @default(now()) @updatedAt @map("updated_at")
   profile             Profile             @relation("ProfileProjects", fields: [profileId], references: [id], onDelete: Cascade, onUpdate: Cascade)
@@ -52,7 +50,6 @@ model Feedback {
   id         Int      @id @default(autoincrement())
   projetoId  Int
   autor      String   @db.VarChar(120)
-  nota       Int
   comentario String
   createdAt  DateTime @default(now()) @map("created_at")
   updatedAt  DateTime @default(now()) @updatedAt @map("updated_at")
