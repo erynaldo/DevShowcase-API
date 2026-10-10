@@ -47,16 +47,13 @@ const listProjectRules = [
     .notEmpty().withMessage('A tecnologia informada no filtro não pode ser vazia'),
   query('tecnologiaId')
     .optional()
-    .isInt({ min: 1 }).withMessage('O ID da tecnologia deve ser um inteiro positivo')
-    .toInt(),
+    .isInt({ min: 1 }).withMessage('O ID da tecnologia deve ser um inteiro positivo'),
   query('page')
     .optional()
-    .isInt({ min: 1 }).withMessage('A página deve ser um inteiro maior ou igual a 1')
-    .toInt(),
+    .isInt({ min: 1 }).withMessage('A página deve ser um inteiro maior ou igual a 1'),
   query('limit')
     .optional()
     .isInt({ min: 1, max: LIMITE_MAXIMO }).withMessage(`O limite deve ser um inteiro entre 1 e ${LIMITE_MAXIMO}`)
-    .toInt()
 ];
 
 const projectIdRules = [
@@ -65,11 +62,13 @@ const projectIdRules = [
     .toInt()
 ];
 
+// No Express 5 req.query é somente leitura, então os sanitizadores do express-validator
+// não persistem: a conversão numérica precisa ser feita aqui.
 const toListQuery = req => ({
   tecnologia: req.query.tecnologia,
-  tecnologiaId: req.query.tecnologiaId,
-  page: req.query.page || PAGE_PADRAO,
-  limit: req.query.limit || LIMITE_PADRAO
+  tecnologiaId: Number(req.query.tecnologiaId) || undefined,
+  page: Number(req.query.page) || PAGE_PADRAO,
+  limit: Number(req.query.limit) || LIMITE_PADRAO
 });
 
 const toProjectOutput = project => ({
